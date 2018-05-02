@@ -1,0 +1,101 @@
+<html>
+<script type="text/javascript">
+	
+	//Rainha - '1' 
+	//Invalida - '0'
+
+	//Declaração do meu arrya.
+	var tabuleiro = new Array();
+
+	tabuleiro[0]=[];
+	tabuleiro[1]=[];
+	tabuleiro[2]=[];
+	tabuleiro[3]=[];
+	tabuleiro[4]=[];
+	tabuleiro[5]=[];
+	tabuleiro[6]=[];
+	tabuleiro[7]=[];
+
+	const totalR = 8;
+
+	var possibilidades=0;
+
+	//Exibe tabuleiro na tela.
+	function mostraTabuleiro(tab){
+		
+		for(var i=0; i<totalR; i++){
+			for(var j=0; j<totalR; j++){
+				if(tab[i][j]=='' || tab[i][j]==null){
+					tab[i][j]=0;
+				}	
+			}
+		}
+
+		for(var i=0; i<totalR; i++){
+			for(var j=0; j<totalR; j++){
+				document.write("&nbsp"+"[ "+tab[i][j]+" ] ");
+			}
+			document.write("<br>");
+		}
+		document.write("<br><br>");
+	}
+
+	//Verifica se pode inserir uma rainha na linha ou na coluna
+	function podeInserirLC(linha,coluna){
+		for(var i=0; i<totalR; i++){
+			if(tabuleiro[linha][i]==1){
+				return false;
+			}
+
+			if(tabuleiro[i][coluna]==1){
+				return false;
+			}
+		}
+		return true;
+	}
+
+	//Verifica se pode inserir uma rainha na diagonal
+	function podeInserirD(linha, coluna){
+		for(var i=0; i<totalR; i++){
+			for(var j=0; j<totalR; j++){
+
+				//Essa conta se acha observando o tabuleiro fisico
+				if(coluna-linha==j-i && tabuleiro[i][j] == 1){
+					return false;
+				}
+
+				if(coluna+linha==j+i && tabuleiro[i][j] == 1){
+					return false;
+				}				
+			}
+		}
+		return true;
+	}
+
+	//funcao principal.
+	function main(coluna){
+		if(coluna == totalR){
+			mostraTabuleiro(tabuleiro);
+			//sempre a coluna e totalR forem iguais é que todas condicoes sao true, entao é uma solucao diferente
+
+			possibilidades++; 
+			exit();
+		}
+
+		for(var i=0; i<totalR; i++){
+			//Aqui esta o pulo do macaco vai verificar se pode colocar uma rainha na posicao antes de posiciona-la
+
+			if(podeInserirLC(i,coluna) && podeInserirD(i,coluna)){
+				tabuleiro[i][coluna] = 1;
+				main(coluna+1);
+				tabuleiro[i][coluna]=null;
+			}
+		}
+		return;
+	}
+
+	main(0);
+	document.write("<br><br>"+possibilidades);
+
+</script>
+</html>

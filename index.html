@@ -1,0 +1,103 @@
+<html>
+<script type="text/javascript">
+
+	//Rainha - '1'
+	//Posicao vazia - '#'
+	//Invalida - '0'
+
+	var tabuleiro = new Array();
+	
+	tabuleiro[0] = [];
+	tabuleiro[1] = [];
+	tabuleiro[2] = [];
+	tabuleiro[3] = [];
+	tabuleiro[4] = [];
+	tabuleiro[5] = [];
+	tabuleiro[6] = [];
+	tabuleiro[7] = [];
+	
+	var i,j;
+	var count = 0;
+	var rainhas = 8;
+
+	for (i = 0; i < 8; ++i){
+		for(j = 0; j < 8; j++){
+			tabuleiro[i][j]='#';			
+		}
+	}
+
+function alocaValor(){
+	for (i = 0; i < 8; ++i){
+		for(j = 0; j < 8; j++){
+			if(tabuleiro[i][j]=='#'){
+				tabuleiro[i][j]='1';
+				return;
+			}
+		}
+	}	
+}
+
+function pegaValores(){
+	for(i=0;i<8;i++){
+		for(j=0;j<8;j++){
+			if(tabuleiro[i][j]=='1' && count==i){
+			count+=1;
+			var	line = i; 
+			var	coluna = j;
+				return [i,j];	
+			}
+		}	
+	}
+}
+
+	
+	tabuleiro[0][0]='0';
+	tabuleiro[0][1]='0';
+	tabuleiro[0][2]='0';
+	tabuleiro[0][3]='0';
+	tabuleiro[0][4]='0';
+	tabuleiro[0][5]='0';
+	tabuleiro[0][6]='0';
+
+	main();
+
+function main(){
+
+	document.write("<br>");
+	
+	if(rainhas==1){
+		return;
+	}
+
+	alocaValor();
+	rainhas--;
+	var indice = pegaValores();
+
+	var line = indice[0];
+	var coluna = indice[1];
+
+	for (i = 0; i < 8; ++i){
+		for(j = 0; j < 8; j++){
+
+			if((line == i || coluna == j) && tabuleiro[i][j]=='#'){
+				tabuleiro[i][j]='0';
+				document.write("&nbsp"+"[ "+tabuleiro[i][j]+" ] ");
+			}else
+				if(coluna-line==j-i && tabuleiro[i][j]=='#'){
+					tabuleiro[i][j]='0';
+					document.write("&nbsp"+"[ "+tabuleiro[i][j]+" ] ");
+				}else
+				if(coluna+line==i+j && tabuleiro[i][j]=='#'){
+					tabuleiro[i][j]='0';
+					document.write("&nbsp"+"[ "+tabuleiro[i][j]+" ] ");	
+				}			
+				else
+						document.write("&nbsp"+"[ "+tabuleiro[i][j]+" ] ");
+		}
+		document.write("<br>");
+	}
+	main();
+}
+
+</script>
+</html>
