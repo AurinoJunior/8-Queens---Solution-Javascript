@@ -7,14 +7,7 @@
 	//Declaração do meu arrya.
 	var tabuleiro = new Array();
 
-	tabuleiro[0]=[];
-	tabuleiro[1]=[];
-	tabuleiro[2]=[];
-	tabuleiro[3]=[];
-	tabuleiro[4]=[];
-	tabuleiro[5]=[];
-	tabuleiro[6]=[];
-	tabuleiro[7]=[];
+	tabuleiro = [[],[],[],[],[],[],[],[]];
 
 	const totalR = 8;
 
@@ -78,8 +71,7 @@
 			mostraTabuleiro(tabuleiro);
 			//sempre a coluna e totalR forem iguais é que todas condicoes sao true, entao é uma solucao diferente
 
-			possibilidades++; 
-			exit();
+			possibilidades++;
 		}
 
 		for(var i=0; i<totalR; i++){
@@ -87,11 +79,12 @@
 
 			if(podeInserirLC(i,coluna) && podeInserirD(i,coluna)){
 				tabuleiro[i][coluna] = 1;
-				main(coluna+1);
+				if (coluna < 8) {
+				  main(coluna+1);
+				}
 				tabuleiro[i][coluna]=null;
 			}
 		}
-		return;
 	}
 
 	main(0);
